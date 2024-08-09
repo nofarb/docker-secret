@@ -4,9 +4,10 @@ FROM alpine:3.15
 # Install necessary packages
 RUN apk add --no-cache curl
 
-# Use the secret as an environment variable in the build process
+# Use the secret directly from the file that Docker creates
 RUN --mount=type=secret,id=mySecret \
-    sh -c 'echo $MY_SECRET > /root/my_secret_from_env.txt'
+    sh -c 'cat /run/secrets/mySecret'
 
-# Verify that the secret was correctly accessed
-RUN cat /root/my_secret_from_env.txt
+# Optionally, use the secret in an environment variable
+RUN --mount=type=secret,id=mySecret \
+    sh -c 'export MY_SECRET=$(cat /run/secrets/mySecret) && echo "The secret is: $MY_SECRET"'
