@@ -13,4 +13,6 @@ RUN --mount=type=secret,id=my_secret.txt \
     sh -c 'cat /run/secrets/my_secret.txt > /root/my_secret.txt'
 
 # Verify the secret is there
+RUN ls
+RUN printenv
 RUN cat /root/my_secret.txt
