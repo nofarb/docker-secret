@@ -9,10 +9,11 @@ RUN mkdir -p /run/secrets
 
 # Docker secret: Use --secret flag to mount the secret during the build
 # Assuming secret file is named "my_secret.txt"
-RUN --mount=type=secret,id=my_secret.txt \
-    sh -c 'cat /run/secrets/my_secret.txt > /root/my_secret.txt'
+RUN --mount=type=secret,id=my_secret.txt
+#\
+#   sh -c 'cat /run/secrets/my_secret.txt > /root/my_secret.txt'
 
 # Verify the secret is there
 RUN ls
-RUN printenv
-RUN cat /root/my_secret.txt
+# RUN printenv
+# RUN cat /root/my_secret.txt
